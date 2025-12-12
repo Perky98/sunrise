@@ -3,191 +3,956 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rodinná firma - Obklady, dlažby a prírodný kameň</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Sunrise | Obklady, dlažby a prírodný kameň</title>
   <style>
     :root {
       --gold: #d4af37;
       --black: #0b0b0f;
+      --bg-1: radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.12), transparent 25%);
+      --bg-2: radial-gradient(circle at 80% 0%, rgba(212, 175, 55, 0.08), transparent 20%);
+      --bg-3: linear-gradient(145deg, #0b0b0f 0%, #08080b 50%, #0f0f16 100%);
+      --glass: rgba(255, 255, 255, 0.03);
+      --stroke: rgba(212, 175, 55, 0.35);
     }
-    body { background-color: var(--black); color: #f7f7f7; }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg-1), var(--bg-2), var(--bg-3);
+      color: #f7f7f7;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    h1, h2, h3, h4, h5 {
+      margin: 0;
+      line-height: 1.2;
+      color: #fff;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      padding: 0 24px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      position: relative;
+      overflow: hidden;
+      padding: 40px 0 60px;
+    }
+
+    .header-overlay {
+      position: absolute;
+      inset: 0;
+      opacity: 0.25;
+      background: radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.25), transparent 35%),
+        radial-gradient(circle at 80% 0%, rgba(212, 175, 55, 0.2), transparent 25%),
+        radial-gradient(circle at 50% 80%, rgba(212, 175, 55, 0.18), transparent 30%);
+    }
+
+    .header-glow {
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      width: 90%;
+      height: 260px;
+      transform: translateX(-50%);
+      border-radius: 48px;
+      background: linear-gradient(120deg, rgba(212, 175, 55, 0.12), rgba(255, 255, 255, 0.02), rgba(212, 175, 55, 0.12));
+      filter: blur(40px);
+      opacity: 0.4;
+    }
+
+    .header-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 20px;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.55);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(212, 175, 55, 0.15);
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+
+    .brand-name {
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2px;
+    }
+
+    .brand-subtitle {
+      font-size: 0.9rem;
+      color: #e5e7eb;
+    }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.95rem;
+      color: #d1d5db;
+    }
+
+    .nav-links a {
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .nav-cta {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-weight: 600;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold);
+      color: var(--black);
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      display: grid;
+      gap: 40px;
+      padding: 48px 0 0;
+    }
+
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--gold);
+      background: rgba(212, 175, 55, 0.08);
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .hero-title {
+      font-size: 2.4rem;
+      text-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .hero-lead {
+      max-width: 820px;
+      font-size: 1.1rem;
+      color: #e5e7eb;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--black);
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      background: var(--gold);
+      color: var(--black);
+      transform: translateY(-2px);
+    }
+
+    .hero-highlights {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      max-width: 640px;
+      color: #e5e7eb;
+      font-size: 0.95rem;
+    }
+
+    .highlight-card {
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid var(--stroke);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .highlight-title {
+      color: var(--gold);
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      max-width: 640px;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid var(--stroke);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .stat-label {
+      margin-top: 6px;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .hero-card {
+      position: relative;
+      border-radius: 28px;
+      border: 1px solid var(--gold);
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.07), rgba(0, 0, 0, 0.9));
+      padding: 24px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65);
+      min-height: 420px;
+    }
+
+    .hero-card::before,
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(36px);
+    }
+
+    .hero-card::before {
+      width: 80px;
+      height: 80px;
+      left: -20px;
+      top: -20px;
+      background: rgba(212, 175, 55, 0.18);
+    }
+
+    .hero-card::after {
+      width: 140px;
+      height: 140px;
+      right: -40px;
+      bottom: -40px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-card-visual {
+      position: relative;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      background: radial-gradient(circle at 30% 30%, rgba(212, 175, 55, 0.18), rgba(0, 0, 0, 0.9));
+      aspect-ratio: 4 / 5;
+    }
+
+    .hero-card-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px;
+      background: radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.15), transparent 40%),
+        radial-gradient(circle at 80% 0%, rgba(255, 255, 255, 0.05), transparent 25%);
+    }
+
+    .card-badge {
+      width: 48px;
+      height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(212, 175, 55, 0.2);
+      border-radius: 50%;
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 1.25rem;
+    }
+
+    .card-heading {
+      margin-top: 12px;
+      font-size: 1.1rem;
+      color: #e5e7eb;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .card-title {
+      margin-top: 12px;
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
+
+    .card-text {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      color: #d1d5db;
+      max-width: 360px;
+    }
+
+    .divider {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--gold);
+      letter-spacing: 0.3em;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: rgba(212, 175, 55, 0.4);
+    }
+
+    main {
+      padding: 60px 0 80px;
+    }
+
+    .section {
+      margin-bottom: 80px;
+    }
+
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .section-subtitle {
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .section-lead {
+      color: #e5e7eb;
+      max-width: 760px;
+    }
+
+    .card-grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1fr;
+    }
+
+    .card {
+      padding: 20px;
+      border-radius: 18px;
+      border: 1px solid var(--stroke);
+      background: rgba(255, 255, 255, 0.02);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold);
+    }
+
+    .card-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .card-number {
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(212, 175, 55, 0.15);
+      font-weight: 700;
+    }
+
+    .card-title-lg {
+      font-size: 1.05rem;
+      color: #fff;
+    }
+
+    .card-body {
+      margin-top: 8px;
+      color: #d1d5db;
+      font-size: 0.95rem;
+    }
+
+    .portfolio-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .portfolio-visual {
+      height: 180px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(11, 11, 15, 0.9));
+    }
+
+    .values-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .values-card {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .review-card {
+      border: 1px solid var(--stroke);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .review-card + .review-card {
+      margin-top: 12px;
+    }
+
+    .cta-box {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 2fr 1fr;
+      align-items: center;
+      padding: 32px 28px;
+      border-radius: 24px;
+      border: 1px solid var(--stroke);
+      background: rgba(255, 255, 255, 0.02);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+    }
+
+    .cta-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      color: #d1d5db;
+      font-size: 0.9rem;
+    }
+
+    .tag {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    footer {
+      border-top: 1px solid rgba(212, 175, 55, 0.25);
+      background: rgba(0, 0, 0, 0.75);
+      padding: 36px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .footer-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      max-width: 280px;
+    }
+
+    .btn-ghost {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--gold);
+      transform: translateY(-1px);
+    }
+
+    @media (min-width: 768px) {
+      .nav-links {
+        display: flex;
+      }
+
+      .hero {
+        grid-template-columns: 1.1fr 0.9fr;
+        align-items: center;
+        padding-top: 64px;
+      }
+
+      .hero-title {
+        font-size: 3.2rem;
+      }
+
+      .section-header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .card-grid.columns-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .card-grid.columns-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .cta-box {
+        grid-template-columns: 2fr 1fr;
+      }
+
+      .footer-inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .container {
+        max-width: 1280px;
+      }
+
+      .hero-title {
+        font-size: 3.6rem;
+      }
+
+      .section {
+        margin-bottom: 100px;
+      }
+
+      .cta-box {
+        padding: 40px 36px;
+      }
+    }
   </style>
 </head>
-<body class="min-h-screen font-sans">
-  <header class="relative overflow-hidden">
-    <div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_20%_20%,rgba(212,175,55,0.25),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(212,175,55,0.2),transparent_25%),radial-gradient(circle_at_50%_80%,rgba(212,175,55,0.18),transparent_30%)]"></div>
-    <div class="relative max-w-6xl mx-auto px-6 py-12 lg:py-16">
-      <div class="flex flex-col gap-8 lg:flex-row lg:items-center">
-        <div class="flex-1 space-y-6">
-          <p class="inline-flex items-center rounded-full border border-[color:var(--gold)] px-4 py-2 text-sm uppercase tracking-[0.2em] text-[color:var(--gold)]">Od roku 2017</p>
-          <h1 class="text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
-            Zverte obkladanie do rúk odborníkov a nechajte u Vás v kúpeľni vyjsť slnko.
-          </h1>
-          <p class="max-w-2xl text-lg text-gray-200">
-            Sme rodinná firma s profesionálne vyškolenými zamestnancami v oblasti obkladov, dlažieb a prírodného kameňa. Naša priorita je spokojnosť zákazníka, dôslednosť a spolupráca s tými najlepšími partnermi na trhu.
-          </p>
-          <div class="flex flex-wrap gap-3">
-            <a href="#kontakt" class="rounded-full bg-[color:var(--gold)] px-6 py-3 text-base font-semibold text-[color:var(--black)] transition hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(212,175,55,0.35)]">Stretnime sa</a>
-            <a href="#sluzby" class="rounded-full border border-[color:var(--gold)] px-6 py-3 text-base font-semibold text-[color:var(--gold)] transition hover:bg-[color:var(--gold)] hover:text-[color:var(--black)]">Pozrieť služby</a>
+<body>
+  <header class="page-header">
+    <div class="header-overlay"></div>
+    <div class="header-glow"></div>
+    <div class="container header-inner">
+      <div class="nav-bar">
+        <div class="brand">
+          <span class="brand-badge">S</span>
+          <div>
+            <p class="brand-name">Sunrise</p>
+            <p class="brand-subtitle">Obklady • Dlažby • Kameň</p>
           </div>
-          <div class="grid grid-cols-2 gap-6 max-w-2xl text-sm text-gray-200">
-            <div class="space-y-1">
-              <p class="text-xl font-semibold text-[color:var(--gold)]">2017</p>
+        </div>
+        <nav class="nav-links">
+          <a href="#sluzby">Služby</a>
+          <a href="#portfolio">Portfólio</a>
+          <a href="#faq">FAQ</a>
+          <a href="#kontakt">Kontakt</a>
+          <a class="nav-cta" href="https://sunrise.sk">Sunrise.sk</a>
+        </nav>
+      </div>
+
+      <div class="hero">
+        <div class="hero-copy">
+          <div class="badge">
+            <span style="width:8px;height:8px;border-radius:50%;background:var(--gold);"></span>
+            Sunrise | Od roku 2017
+          </div>
+          <h1 class="hero-title">Zverte obkladanie do rúk Sunrise a nechajte u vás v kúpeľni vyjsť slnko.</h1>
+          <p class="hero-lead">Sme rodinná firma s profesionálne vyškolenými zamestnancami v oblasti obkladov, dlažieb a prírodného kameňa. Naša priorita je spokojnosť zákazníka, dôslednosť a spolupráca s tými najlepšími partnermi na trhu.</p>
+          <div class="button-row">
+            <a class="btn btn-primary" href="#kontakt">Stretnime sa</a>
+            <a class="btn btn-outline" href="#sluzby">Pozrieť služby</a>
+          </div>
+          <div class="hero-highlights">
+            <div class="highlight-card">
+              <p class="highlight-title">Sunrise 2017</p>
               <p>Na trhu už od roku 2017, staviame na dôvere a referenciách.</p>
             </div>
-            <div class="space-y-1">
-              <p class="text-xl font-semibold text-[color:var(--gold)]">Rodinný prístup</p>
+            <div class="highlight-card">
+              <p class="highlight-title">Rodinný prístup</p>
               <p>Stály tím odborníkov, ktorí dohliadajú na každý detail.</p>
             </div>
           </div>
+          <div class="stat-grid">
+            <div class="stat-card">
+              <p class="stat-number">200+</p>
+              <p class="stat-label">Projektov</p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-number">48h</p>
+              <p class="stat-label">Návrh ponuky</p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-number">100%</p>
+              <p class="stat-label">Transparentnosť</p>
+            </div>
+          </div>
         </div>
-        <div class="flex-1">
-          <div class="relative rounded-3xl border border-[color:var(--gold)] bg-gradient-to-br from-[rgba(212,175,55,0.07)] to-transparent p-6 shadow-[0_20px_60px_rgba(0,0,0,0.45)]">
-            <div class="aspect-[4/5] overflow-hidden rounded-2xl border border-[rgba(255,255,255,0.08)] bg-black">
-              <div class="absolute inset-0 bg-[linear-gradient(135deg,rgba(212,175,55,0.15)_0%,rgba(11,11,15,0.85)_60%)]"></div>
-              <div class="relative flex h-full flex-col justify-end p-6 text-gray-100">
-                <p class="text-2xl font-semibold text-white">Obklady, dlažby, prírodný kameň</p>
-                <p class="mt-2 max-w-sm text-sm text-gray-200">Návrh, vizualizácia, objednanie materiálu, doručenie a precízna realizácia.</p>
-                <div class="mt-4 flex items-center gap-3 text-[color:var(--gold)]">
-                  <span class="h-px flex-1 bg-[color:var(--gold)] opacity-40"></span>
-                  <span class="text-xs uppercase tracking-[0.3em]">komplexne</span>
-                  <span class="h-px flex-1 bg-[color:var(--gold)] opacity-40"></span>
-                </div>
+
+        <div class="hero-card">
+          <div class="hero-card-visual"></div>
+          <div class="hero-card-content">
+            <div class="brand">
+              <span class="card-badge">★</span>
+              <div>
+                <p class="card-title" style="margin:0;color:#e5e7eb;font-weight:600;">Luxusné povrchy</p>
+                <p class="card-heading">obklady • dlažby • kameň</p>
               </div>
             </div>
+            <p class="card-title">Obklady, dlažby, prírodný kameň</p>
+            <p class="card-text">Návrh, vizualizácia, objednanie materiálu, doručenie a precízna realizácia s dôrazom na čistotu a detail.</p>
+            <div class="divider">komplexne</div>
           </div>
         </div>
       </div>
     </div>
   </header>
 
-  <main class="max-w-6xl mx-auto px-6 py-14 lg:py-20 space-y-20">
-    <section id="sluzby" class="space-y-10">
-      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+  <main>
+    <section id="sluzby" class="section container">
+      <div class="section-header">
         <div>
-          <p class="text-sm uppercase tracking-[0.3em] text-[color:var(--gold)]">Naše služby</p>
-          <h2 class="text-3xl font-semibold text-white sm:text-4xl">Od návrhu po realizáciu</h2>
+          <p class="section-subtitle">Naše služby</p>
+          <h2>Od návrhu po realizáciu</h2>
         </div>
-        <p class="max-w-2xl text-gray-200">
-          Radi sa s vami stretneme pri rekonštrukcii či novostavbe. Pripravíme návrh, vizualizáciu, zabezpečíme materiál, doručíme ho a zrealizujeme všetko podľa vašich požiadaviek.
-        </p>
+        <p class="section-lead">Radi sa s vami stretneme pri rekonštrukcii či novostavbe. Pripravíme návrh, vizualizáciu, zabezpečíme materiál, doručíme ho a zrealizujeme všetko podľa vašich požiadaviek.</p>
       </div>
-      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <article class="flex flex-col gap-3 rounded-2xl border border-[rgba(212,175,55,0.35)] bg-[rgba(255,255,255,0.02)] p-6 transition hover:-translate-y-1 hover:border-[color:var(--gold)]">
-          <div class="flex items-center gap-3 text-[color:var(--gold)]">
-            <span class="h-10 w-10 rounded-full bg-[rgba(212,175,55,0.15)] flex items-center justify-center font-semibold">1</span>
-            <p class="text-lg font-semibold text-white">Návrh a vizualizácia</p>
+      <div class="card-grid columns-3">
+        <article class="card">
+          <div class="card-label">
+            <span class="card-number">1</span>
+            <p class="card-title-lg">Návrh a vizualizácia</p>
           </div>
-          <p class="text-gray-200">Spolu vytvoríme riešenie presne podľa vašich predstáv a ukážeme vám ho vo vizualizácii.</p>
+          <p class="card-body">Spolu vytvoríme riešenie presne podľa vašich predstáv a ukážeme vám ho vo vizualizácii.</p>
         </article>
-        <article class="flex flex-col gap-3 rounded-2xl border border-[rgba(212,175,55,0.35)] bg-[rgba(255,255,255,0.02)] p-6 transition hover:-translate-y-1 hover:border-[color:var(--gold)]">
-          <div class="flex items-center gap-3 text-[color:var(--gold)]">
-            <span class="h-10 w-10 rounded-full bg-[rgba(212,175,55,0.15)] flex items-center justify-center font-semibold">2</span>
-            <p class="text-lg font-semibold text-white">Materiály</p>
+        <article class="card">
+          <div class="card-label">
+            <span class="card-number">2</span>
+            <p class="card-title-lg">Materiály</p>
           </div>
-          <p class="text-gray-200">Objednávame len overené obklady, dlažby a prírodný kameň od spoľahlivých partnerov.</p>
+          <p class="card-body">Objednávame len overené obklady, dlažby a prírodný kameň od spoľahlivých partnerov.</p>
         </article>
-        <article class="flex flex-col gap-3 rounded-2xl border border-[rgba(212,175,55,0.35)] bg-[rgba(255,255,255,0.02)] p-6 transition hover:-translate-y-1 hover:border-[color:var(--gold)]">
-          <div class="flex items-center gap-3 text-[color:var(--gold)]">
-            <span class="h-10 w-10 rounded-full bg-[rgba(212,175,55,0.15)] flex items-center justify-center font-semibold">3</span>
-            <p class="text-lg font-semibold text-white">Doručenie</p>
+        <article class="card">
+          <div class="card-label">
+            <span class="card-number">3</span>
+            <p class="card-title-lg">Doručenie</p>
           </div>
-          <p class="text-gray-200">Zabezpečíme logistiku tak, aby bol materiál na mieste presne vtedy, keď ho potrebujete.</p>
+          <p class="card-body">Zabezpečíme logistiku tak, aby bol materiál na mieste presne vtedy, keď ho potrebujete.</p>
         </article>
-        <article class="flex flex-col gap-3 rounded-2xl border border-[rgba(212,175,55,0.35)] bg-[rgba(255,255,255,0.02)] p-6 transition hover:-translate-y-1 hover:border-[color:var(--gold)]">
-          <div class="flex items-center gap-3 text-[color:var(--gold)]">
-            <span class="h-10 w-10 rounded-full bg-[rgba(212,175,55,0.15)] flex items-center justify-center font-semibold">4</span>
-            <p class="text-lg font-semibold text-white">Realizácia</p>
+        <article class="card">
+          <div class="card-label">
+            <span class="card-number">4</span>
+            <p class="card-title-lg">Realizácia</p>
           </div>
-          <p class="text-gray-200">Presná a čistá práca vyškoleného tímu, ktorý myslí na každý detail.</p>
+          <p class="card-body">Presná a čistá práca vyškoleného tímu, ktorý myslí na každý detail.</p>
         </article>
-        <article class="flex flex-col gap-3 rounded-2xl border border-[rgba(212,175,55,0.35)] bg-[rgba(255,255,255,0.02)] p-6 transition hover:-translate-y-1 hover:border-[color:var(--gold)]">
-          <div class="flex items-center gap-3 text-[color:var(--gold)]">
-            <span class="h-10 w-10 rounded-full bg-[rgba(212,175,55,0.15)] flex items-center justify-center font-semibold">5</span>
-            <p class="text-lg font-semibold text-white">Kontrola kvality</p>
+        <article class="card">
+          <div class="card-label">
+            <span class="card-number">5</span>
+            <p class="card-title-lg">Kontrola kvality</p>
           </div>
-          <p class="text-gray-200">Kontrolujeme výsledok a dolaďujeme finálne detaily pre maximálnu spokojnosť.</p>
+          <p class="card-body">Kontrolujeme výsledok a dolaďujeme finálne detaily pre maximálnu spokojnosť.</p>
         </article>
-        <article class="flex flex-col gap-3 rounded-2xl border border-[rgba(212,175,55,0.35)] bg-[rgba(255,255,255,0.02)] p-6 transition hover:-translate-y-1 hover:border-[color:var(--gold)]">
-          <div class="flex items-center gap-3 text-[color:var(--gold)]">
-            <span class="h-10 w-10 rounded-full bg-[rgba(212,175,55,0.15)] flex items-center justify-center font-semibold">6</span>
-            <p class="text-lg font-semibold text-white">Podpora</p>
+        <article class="card">
+          <div class="card-label">
+            <span class="card-number">6</span>
+            <p class="card-title-lg">Podpora</p>
           </div>
-          <p class="text-gray-200">Sme tu pre vás aj po dokončení projektu, poradíme s údržbou a ďalšími krokmi.</p>
+          <p class="card-body">Sme tu pre vás aj po dokončení projektu, poradíme s údržbou a ďalšími krokmi.</p>
         </article>
       </div>
     </section>
 
-    <section class="grid gap-10 lg:grid-cols-2 lg:items-center">
-      <div class="space-y-6">
-        <p class="text-sm uppercase tracking-[0.3em] text-[color:var(--gold)]">Prečo my</p>
-        <h3 class="text-3xl font-semibold text-white sm:text-4xl">Spokojnosť zákazníka je pre nás priorita</h3>
-        <p class="text-gray-200">Sme rodinná firma a každý projekt vnímame osobne. Naša práca stojí na dôslednosti, skúsenostiach a na partneroch, ktorí sú neoddeliteľnou súčasťou našich realizácií.</p>
-        <div class="grid gap-4 sm:grid-cols-2">
-          <div class="rounded-2xl border border-[rgba(212,175,55,0.35)] bg-[rgba(255,255,255,0.02)] p-5">
-            <p class="text-lg font-semibold text-white">Vyškolený tím</p>
-            <p class="text-gray-200 text-sm mt-2">Profesionálni obkladači a technici, ktorí držia krok s trendmi a technológiami.</p>
+    <section id="portfolio" class="section container">
+      <div class="section-header">
+        <div>
+          <p class="section-subtitle">Portfólio Sunrise</p>
+          <h2>Výber realizácií, ktoré nás reprezentujú</h2>
+        </div>
+        <p class="section-lead">Každý projekt je výsledkom individuálneho prístupu. Pozrite si ukážky kúpeľní a wellness priestorov, ktoré sme vytvorili pre našich klientov.</p>
+      </div>
+      <div class="card-grid columns-3">
+        <div class="card portfolio-card">
+          <div class="portfolio-visual"></div>
+          <p class="card-title-lg">Luxusná kúpeľňa</p>
+          <p class="card-body">Vysokolesklé obklady, podsvietené niky a zlaté doplnky v štýle Sunrise.</p>
+        </div>
+        <div class="card portfolio-card">
+          <div class="portfolio-visual" style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(11, 11, 15, 0.85));"></div>
+          <p class="card-title-lg">Wellness zóna</p>
+          <p class="card-body">Prírodný kameň v kombinácii s dlažbou, ktorá odoláva vlhkosti a teplu.</p>
+        </div>
+        <div class="card portfolio-card">
+          <div class="portfolio-visual" style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(11, 11, 15, 0.9));"></div>
+          <p class="card-title-lg">Moderná kuchyňa</p>
+          <p class="card-body">Minimalistická realizácia s dôrazom na hygienu, presnosť škár a jednoduchú údržbu.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container" style="display:grid;gap:28px;grid-template-columns:1fr;">
+      <div style="display:grid;gap:20px;align-items:center;grid-template-columns:1fr;">
+        <div class="section-header" style="margin-bottom:0;flex-direction:column;align-items:flex-start;gap:16px;">
+          <p class="section-subtitle">Sunrise hodnoty</p>
+          <h3>Spoľahlivá komunikácia a čistota práce</h3>
+          <p class="section-lead">Pri každom projekte vám dáme jasné termíny a priebežné reporty. Upratané pracovisko, chránené povrchy a transparentné kroky sú štandardom.</p>
+        </div>
+        <div class="values-grid card-grid columns-2">
+          <div class="card values-card">
+            <p class="card-title-lg">Rozpočty bez prekvapení</p>
+            <p class="card-body">Detailný rozpis materiálov a prác vopred, aby ste mali kontrolu nad investíciou.</p>
           </div>
-          <div class="rounded-2xl border border-[rgba(212,175,55,0.35)] bg-[rgba(255,255,255,0.02)] p-5">
-            <p class="text-lg font-semibold text-white">Partnerstvá</p>
-            <p class="text-gray-200 text-sm mt-2">Spolupracujeme s top dodávateľmi materiálov a technológií.</p>
+          <div class="card values-card">
+            <p class="card-title-lg">Garancia presnosti</p>
+            <p class="card-body">Laserové merania a precízne rezy, ktoré sedia na milimeter.</p>
           </div>
-          <div class="rounded-2xl border border-[rgba(212,175,55,0.35)] bg-[rgba(255,255,255,0.02)] p-5">
-            <p class="text-lg font-semibold text-white">Detail a dôslednosť</p>
-            <p class="text-gray-200 text-sm mt-2">Každý detail má svoje miesto – kontrola precíznosti je súčasťou procesu.</p>
+          <div class="card values-card">
+            <p class="card-title-lg">Súhra profesií</p>
+            <p class="card-body">Koordinujeme vodárov, elektrikárov aj stolárov, aby práca odsýpala.</p>
           </div>
-          <div class="rounded-2xl border border-[rgba(212,175,55,0.35)] bg-[rgba(255,255,255,0.02)] p-5">
-            <p class="text-lg font-semibold text-white">Prispôsobenie</p>
-            <p class="text-gray-200 text-sm mt-2">Rešpektujeme vaše požiadavky a hľadáme najlepšie riešenia pre konkrétny priestor.</p>
+          <div class="card values-card">
+            <p class="card-title-lg">Servis po montáži</p>
+            <p class="card-body">Odporúčania na údržbu a možnosť rýchleho servisu, ak sa čokoľvek zmení.</p>
           </div>
         </div>
       </div>
-      <div class="relative rounded-3xl border border-[color:var(--gold)] bg-gradient-to-br from-[rgba(212,175,55,0.08)] to-[rgba(11,11,15,0.9)] p-8 shadow-[0_20px_60px_rgba(0,0,0,0.55)]">
-        <div class="absolute -top-8 right-10 h-16 w-16 rounded-full border border-[color:var(--gold)] bg-[rgba(212,175,55,0.1)] blur-0"></div>
-        <div class="space-y-4">
-          <p class="text-sm uppercase tracking-[0.3em] text-[color:var(--gold)]">Proces</p>
-          <h4 class="text-2xl font-semibold text-white">Priebeh spolupráce</h4>
-          <ol class="space-y-3 text-gray-200">
-            <li class="flex gap-3">
-              <span class="mt-1 h-6 w-6 flex-none rounded-full bg-[rgba(212,175,55,0.2)] text-center text-sm font-semibold text-[color:var(--gold)]">1</span>
-              <p>Konzultácia a zistenie požiadaviek</p>
-            </li>
-            <li class="flex gap-3">
-              <span class="mt-1 h-6 w-6 flex-none rounded-full bg-[rgba(212,175,55,0.2)] text-center text-sm font-semibold text-[color:var(--gold)]">2</span>
-              <p>Návrh, vizualizácia a výber materiálov</p>
-            </li>
-            <li class="flex gap-3">
-              <span class="mt-1 h-6 w-6 flex-none rounded-full bg-[rgba(212,175,55,0.2)] text-center text-sm font-semibold text-[color:var(--gold)]">3</span>
-              <p>Objednanie a doručenie materiálu</p>
-            </li>
-            <li class="flex gap-3">
-              <span class="mt-1 h-6 w-6 flex-none rounded-full bg-[rgba(212,175,55,0.2)] text-center text-sm font-semibold text-[color:var(--gold)]">4</span>
-              <p>Realizácia a dôkladná kontrola kvality</p>
-            </li>
-            <li class="flex gap-3">
-              <span class="mt-1 h-6 w-6 flex-none rounded-full bg-[rgba(212,175,55,0.2)] text-center text-sm font-semibold text-[color:var(--gold)]">5</span>
-              <p>Odovzdanie diela a odporúčania k údržbe</p>
-            </li>
-          </ol>
-          <div class="mt-6 flex flex-wrap items-center gap-4 rounded-2xl border border-[rgba(212,175,55,0.35)] bg-[rgba(255,255,255,0.03)] p-4">
-            <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(212,175,55,0.15)] text-lg font-semibold text-[color:var(--gold)]">★</span>
-            <p class="text-sm text-gray-100">"Tam to predsa ráno začína a večer končí" – vytvárame kúpeľne, kde sa každý deň cíti príjemne.</p>
+      <div class="card" style="border-color:var(--gold);background:linear-gradient(180deg, rgba(212, 175, 55, 0.12), rgba(11, 11, 15, 0.9));padding:24px;box-shadow:0 20px 60px rgba(0,0,0,0.55);">
+        <p class="section-subtitle" style="margin-bottom:12px;">Hodnotenia</p>
+        <div>
+          <div class="card review-card">
+            <p class="card-body" style="color:#f5f5f5;">„Sunrise nám zachránili termín kolaudácie. Precízna práca, rýchla komunikácia a čisté pracovisko.“</p>
+            <p class="section-subtitle" style="margin-top:8px;font-size:0.7rem;">Mária, Bratislava</p>
           </div>
+          <div class="card review-card">
+            <p class="card-body" style="color:#f5f5f5;">„Dlažba v celom dome sedí na milimeter. Zvolili sme prírodný kameň a výsledok je nad očakávania.“</p>
+            <p class="section-subtitle" style="margin-top:8px;font-size:0.7rem;">Tomáš, Pezinok</p>
+          </div>
+        </div>
+        <div style="margin-top:16px;">
+          <a class="btn btn-primary" href="https://sunrise.sk" style="width:100%;max-width:240px;">Navštíviť Sunrise.sk</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section container">
+      <div class="section-header">
+        <div>
+          <p class="section-subtitle">Časté otázky</p>
+          <h3>Ako spolupráca so Sunrise funguje</h3>
+        </div>
+        <p class="section-lead">Ak máte otázku, ktorú ste nenašli nižšie, napíšte nám na <a style="color:var(--gold);text-decoration:underline;" href="mailto:info@sunrise.sk">info@sunrise.sk</a>.</p>
+      </div>
+      <div class="card-grid columns-2">
+        <div class="card">
+          <p class="card-title-lg">Viete zabezpečiť materiál aj dopravu?</p>
+          <p class="card-body">Áno, spolupracujeme s dodávateľmi, ktorí doručia obklady, dlažby aj kameň priamo na stavbu v dohodnutom termíne.</p>
+        </div>
+        <div class="card">
+          <p class="card-title-lg">Robíte aj menšie opravy?</p>
+          <p class="card-body">Áno, vieme pomôcť s rekonštrukciou menších kúpeľní či výmenou poškodených obkladov.</p>
+        </div>
+        <div class="card">
+          <p class="card-title-lg">Ako rýchlo viete poslať cenovú ponuku?</p>
+          <p class="card-body">Štandardne do 48 hodín od obhliadky alebo doručenia podkladov.</p>
+        </div>
+        <div class="card">
+          <p class="card-title-lg">Aké máte záruky?</p>
+          <p class="card-body">Záruka na prácu je 24 mesiacov, pri materiáloch sa riadime podmienkami výrobcov.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container" style="display:grid;gap:24px;grid-template-columns:1fr;align-items:center;">
+      <div class="section-header" style="margin-bottom:0;flex-direction:column;align-items:flex-start;gap:16px;">
+        <p class="section-subtitle">Prečo my</p>
+        <h3>Spokojnosť zákazníka je pre nás priorita</h3>
+        <p class="section-lead">Sme rodinná firma a každý projekt vnímame osobne. Naša práca stojí na dôslednosti, skúsenostiach a na partneroch, ktorí sú neoddeliteľnou súčasťou našich realizácií.</p>
+      </div>
+      <div class="card-grid columns-2">
+        <div class="card values-card">
+          <p class="card-title-lg">Vyškolený tím</p>
+          <p class="card-body">Profesionálni obkladači a technici, ktorí držia krok s trendmi a technológiami.</p>
+        </div>
+        <div class="card values-card">
+          <p class="card-title-lg">Partnerstvá</p>
+          <p class="card-body">Spolupracujeme s top dodávateľmi materiálov a technológií.</p>
+        </div>
+        <div class="card values-card">
+          <p class="card-title-lg">Detail a dôslednosť</p>
+          <p class="card-body">Každý detail má svoje miesto – kontrola precíznosti je súčasťou procesu.</p>
+        </div>
+        <div class="card values-card">
+          <p class="card-title-lg">Prispôsobenie</p>
+          <p class="card-body">Rešpektujeme vaše požiadavky a hľadáme najlepšie riešenia pre konkrétny priestor.</p>
+        </div>
+      </div>
+      <div class="card" style="border-color:var(--gold);background:linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(11, 11, 15, 0.9));padding:24px;box-shadow:0 20px 60px rgba(0,0,0,0.55);">
+        <p class="section-subtitle" style="margin-bottom:12px;">Proces</p>
+        <h4 style="font-size:1.5rem;margin-bottom:12px;">Priebeh spolupráce</h4>
+        <ol style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;color:#d1d5db;">
+          <li style="display:flex;gap:12px;align-items:flex-start;">
+            <span class="card-number" style="margin-top:4px;">1</span>
+            <p style="margin:0;">Konzultácia a zistenie požiadaviek</p>
+          </li>
+          <li style="display:flex;gap:12px;align-items:flex-start;">
+            <span class="card-number" style="margin-top:4px;">2</span>
+            <p style="margin:0;">Návrh, vizualizácia a výber materiálov</p>
+          </li>
+          <li style="display:flex;gap:12px;align-items:flex-start;">
+            <span class="card-number" style="margin-top:4px;">3</span>
+            <p style="margin:0;">Objednanie a doručenie materiálu</p>
+          </li>
+          <li style="display:flex;gap:12px;align-items:flex-start;">
+            <span class="card-number" style="margin-top:4px;">4</span>
+            <p style="margin:0;">Realizácia a dôkladná kontrola kvality</p>
+          </li>
+          <li style="display:flex;gap:12px;align-items:flex-start;">
+            <span class="card-number" style="margin-top:4px;">5</span>
+            <p style="margin:0;">Odovzdanie diela a odporúčania k údržbe</p>
+          </li>
+        </ol>
+        <div class="card" style="margin-top:20px;border-color:var(--stroke);background:rgba(255,255,255,0.03);display:flex;gap:14px;align-items:center;">
+          <span class="card-number" style="width:44px;height:44px;font-size:1.1rem;">★</span>
+          <p style="margin:0;color:#f5f5f5;font-size:0.95rem;">"Tam to predsa ráno začína a večer končí" – vytvárame kúpeľne, kde sa každý deň cíti príjemne.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container">
+      <div class="cta-box">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <p class="section-subtitle">Začnime spolu</p>
+          <h3>Rezervujte si termín so Sunrise</h3>
+          <p class="section-lead">Pošlite nám pôdorys alebo fotky aktuálneho stavu. Ozveme sa vám najneskôr do 48 hodín s návrhom ďalšieho postupu.</p>
+          <div class="cta-tags">
+            <span class="tag">info@sunrise.sk</span>
+            <span class="tag">+421 900 000 000</span>
+            <span class="tag">Sunrise.sk</span>
+          </div>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-primary" href="mailto:info@sunrise.sk">Napísať e-mail</a>
+          <a class="btn btn-outline" href="tel:+421900000000">Zavolať Sunrise</a>
+          <a class="btn btn-ghost" href="https://sunrise.sk">Viac na Sunrise.sk</a>
         </div>
       </div>
     </section>
   </main>
 
-  <footer id="kontakt" class="border-t border-[rgba(212,175,55,0.25)] bg-[rgba(0,0,0,0.75)]">
-    <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+  <footer id="kontakt">
+    <div class="container footer-inner">
       <div>
-        <p class="text-sm uppercase tracking-[0.3em] text-[color:var(--gold)]">Kontakt</p>
-        <h5 class="text-2xl font-semibold text-white">Radi sa s vami stretneme</h5>
-        <p class="text-gray-200 mt-2">Odošlite nám vaše požiadavky a pripravíme návrh s vizualizáciou.</p>
+        <p class="section-subtitle">Kontakt</p>
+        <h5 style="font-size:1.6rem;">Radi sa s vami stretneme</h5>
+        <p class="section-lead" style="max-width:520px;">Napíšte nám, pošleme termín obhliadky a cenovú ponuku do 48 hodín.</p>
+        <p style="font-size:0.95rem;color:#9ca3af;margin-top:8px;">Náš web: <a style="color:var(--gold);text-decoration:underline;" href="https://sunrise.sk">Sunrise.sk</a></p>
       </div>
-      <div class="flex flex-col gap-3 text-gray-100">
-        <a class="rounded-full bg-[color:var(--gold)] px-5 py-3 text-center font-semibold text-[color:var(--black)] shadow-[0_10px_30px_rgba(212,175,55,0.35)]" href="mailto:info@obklady.sk">info@obklady.sk</a>
-        <a class="rounded-full border border-[color:var(--gold)] px-5 py-3 text-center font-semibold text-[color:var(--gold)]" href="tel:+421900000000">+421 900 000 000</a>
+      <div class="footer-actions">
+        <a class="btn btn-primary" href="mailto:info@sunrise.sk">info@sunrise.sk</a>
+        <a class="btn btn-outline" href="tel:+421900000000">+421 900 000 000</a>
       </div>
     </div>
   </footer>
